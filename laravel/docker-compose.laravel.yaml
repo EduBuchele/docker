@@ -1,0 +1,26 @@
+version: '3.3'
+
+services:
+  laravel:
+    build:
+      context: ./laravel
+      dockerfile: Dockerfile.prod
+    image: edubuchele/laravel:prod
+    container_name: laravel
+    networks:
+      - larenet
+
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.prod
+    image: edubuchele/nginx:prod
+    container_name: nginx
+    networks:
+      - larenet
+    ports:
+      - "8080:80"
+
+networks:
+  larenet:
+    driver: bridge
